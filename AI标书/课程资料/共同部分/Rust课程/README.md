@@ -26,16 +26,6 @@
 | 第3课 | 错误处理、Trait | 用 ? 代替 unwrap、定义 Tool trait |
 | 第4课 | 异步、HTTP 实战 | 调 DashScope API——Agent 第 1 课直接开始 |
 
----
-
-## 怎么学
-
-```
-第0课     开课前自学完成（环境搭建 + 验证脚本）
-第1-2课   第一天：上午学习 + 下午学习
-第3-4课   第二天：上午学习 + 下午学习
-大作业     第三天：ai-client crate（1 天完成）
-Agent 第1课 第四天：Agent 课程正式开始 🚀
 ```
 
 ---
@@ -43,10 +33,10 @@ Agent 第1课 第四天：Agent 课程正式开始 🚀
 ## 和 Agent 课程的关系
 
 ```
-第1-2天  Rust 前置（4 课）── 基本语法 + HTTP + JSON + async
-第3天    Rust 大作业（ai-client crate）
-第4天起  Agent 课程（7 周）── Rust 进阶知识在用到时穿插讲
-最后2周  Agent 大作业（Mini 标书审核）
+PartA  Rust 前置（4 课）── 基本语法 + HTTP + JSON + async
+PartB    Rust 大作业（ai-client crate）
+PartC  Agent 课程 ── Rust 进阶知识在用到时穿插讲
+PartD  Agent 大作业（Mini 标书审核）
 ```
 
 Rust 进阶知识（trait object、broadcast channel、Arc、子进程 stdio）不放在前置课程里——脱离 Agent 场景讲这些太抽象。在 Agent 课里用到时，花 10 分钟现场讲 Rust 概念，学员立刻用，效果好得多。
