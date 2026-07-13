@@ -38,7 +38,7 @@ PartC  Agent 课程 ── Rust 进阶知识在用到时穿插讲
 PartD  Agent 大作业（Mini 标书审核）
 ```
 
-Rust 进阶知识（trait object、broadcast channel、Arc、子进程 stdio）不放在前置课程里——脱离 Agent 场景讲这些太抽象。在 Agent 课里用到时，花 10 分钟现场讲 Rust 概念，学员立刻用，效果好得多。
+Rust 进阶知识（trait object、broadcast channel、Arc、子进程 stdio）不放在前置课程里——脱离 Agent 场景讲这些太抽象。在 Agent 课里用到时，理解 Rust 概念。
 
 ---
 
