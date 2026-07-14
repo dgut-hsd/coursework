@@ -1,115 +1,73 @@
-use anyhow::{Context, Result, bail};
-use std::collections::HashMap;
-use std::fs;
+#[derive(Debug, Clone)]
+struct Document{
+    title:String,
+    content:String,
+}
 
 #[derive(Debug)]
-struct Config {
-    api_key: String,
-    model: String,
-    max_tokens: u32,
+struct SearchResult {
+    title: String,
+    snippet: String,
+    score: u32,
 }
-//1.加载配置
-impl Config {
-    fn from_file(path: &str) -> Result<Self> {
-        let content = fs::read_to_string(path).with_context(|| format!("无法读取配置文件: {}", path))?;
 
-        let mut map: HashMap<String, String> = HashMap::new();
-        
-        for line in content.lines() {
-            if line.is_empty() || line.starts_with('#') { continue; }
+fn search(query:&str,documnets:&[Document]) ->Vec<SearchResult>{
+    //处理query关键词
+    let keywords :Vec<&str> = query.split_whitespace().filter(|w| w.len()>=2).collect();
+    if keywords.is_empty() {
+        return vec![];
+    }
 
-            if let Some((key, value)) = line.split_once('=') {
-                map.insert(key.trim().to_string(), value.trim().to_string());
+    let mut results : Vec<SearchResult> = Vec::new();
+
+    for doc in documnets {
+        let mut score = 0;
+        //计分
+        for keyword in &keywords {
+            if doc.content.contains(keyword){
+                score +=1;
             }
         }
-
-        let api_key = map.get("api_key").context("配置中缺少 'api_key' 字段")?.clone();
-            
-        if api_key.is_empty() {
-            bail!("'api_key' 不能为空");
-        }
-
-        let model = map.get("model").context("配置中缺少 'model' 字段")?.clone();
-
-        let max_tokens_str = map.get("max_tokens").context("配置中缺少 'max_tokens' 字段")?;
-            
-        let max_tokens: u32 = max_tokens_str.parse().with_context(|| format!("'max_tokens' 必须是数字，当前值为: {}", max_tokens_str))?;
-            
-        if max_tokens == 0 {
-            bail!("'max_tokens' 必须大于 0");
-        }
-
-        Ok(Config {
-            api_key,
-            model,
-            max_tokens,
-        })
-    }
-}
-
-//2.命令系统
-trait Command {
-    fn name(&self) -> &str;
-    fn run(&self, args: &[String]) -> String;
-}
-
-struct EchoCommand;
-impl Command for EchoCommand {
-    fn name(&self) -> &str { "echo" }
-    fn run(&self, args: &[String]) -> String {
-        args.join(" ")
-    }
-}
-
-struct UppercaseCommand;
-impl Command for UppercaseCommand {
-    fn name(&self) -> &str { "upper" }
-    fn run(&self, args: &[String]) -> String {
-        args.join(" ").to_uppercase()
-    }
-}
-
-struct CommandRegistry {
-    map: HashMap<String, Box<dyn Command>>,
-}
-
-impl CommandRegistry {
-    fn new() -> Self {
-        Self { map: HashMap::new() }
-    }
-
-    fn register(&mut self, cmd: Box<dyn Command>) {
-        let name = cmd.name().to_string();
-        self.map.insert(name, cmd);
-    }
-
-    fn execute(&self, name: &str, args: &[String]) {
-        match self.map.get(name) {
-            Some(cmd) => {
-                let result = cmd.run(args);
-                println!("[执行结果] {}", result);
-            }
-            None => println!("[错误] 未找到命令: {}", name),
+        if score > 0 {
+            let res = SearchResult {
+                title : doc.title.clone(),
+                snippet:doc.content.clone(),
+                score: score,
+            };
+            results.push(res);
         }
     }
+
+    results.sort_by(|a,b| b.score.cmp(&a.score));
+    return results;
 }
 
-fn main() -> Result<()> {
-    // 1.配置加载
-    let config = Config::from_file("config.txt")?;
-    println!("配置内容：{:?}",config);
 
-    // 2.命令系统
-    let mut registry = CommandRegistry::new();
 
-    // 注册命令
-    registry.register(Box::new(EchoCommand));
-    registry.register(Box::new(UppercaseCommand));
+fn main() {
+    let docs = vec![
+        Document {
+            title: "政府采购法 第22条".to_string(),
+            content: "供应商参加政府采购活动应当具备下列条件：具有独立承担民事责任的能力；具有良好的商业信誉和健全的财务会计制度...".to_string(),
+        },
+        Document {
+            title: "招标投标法 第20条".to_string(),
+            content: "招标文件不得要求或者标明特定的生产供应者以及含有倾向或者排斥潜在投标人的其他内容。".to_string(),
+        },
+        Document {
+            title: "合同法 第10条".to_string(),
+            content: "当事人订立合同，有书面形式、口头形式和其他形式。法律、行政法规规定采用书面形式的，应当采用书面形式。".to_string(),
+        },
+    ];
 
-    // 执行命令
-    registry.execute("echo", &vec!["hello".to_string(), "world".to_string()]);
-    registry.execute("upper", &vec!["hello".to_string(), "rust".to_string()]);
-    registry.execute("unknown", &vec![]);
+    //测试
+    let res1 = search("采购", &docs);
+    for r in res1 {
+        println!("[res1]标题: {}，片段：{}，分数：{}", r.title,r.snippet,r.score);
+    }
 
-    Ok(())
+    let res2 = search("形式 招标", &docs);
+    for r in res2 {
+        println!("[res2]标题: {}，片段：{}，分数：{}", r.title,r.snippet,r.score);
+    }
 }
