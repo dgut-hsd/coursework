@@ -76,7 +76,7 @@ fn main() {
 
 ### 运行截图
 
-![image-20260714211929072](G:\暑假项目_ai标书\assets\image-20260714211929072.png)
+![image-20260714211929072](\assets\image-20260714211929072.png)
 
 
 
@@ -174,7 +174,7 @@ fn main() {
 
 
 
-![image-20260714211825726](C:\Users\1\AppData\Roaming\Typora\typora-user-images\image-20260714211825726.png)
+![image-20260714211825726](assets\image-20260714211825726.png)
 
 
 
@@ -343,7 +343,7 @@ fn main() -> anyhow::Result<()> {
 
 ### 运行截图
 
-![image-20260714213700880](G:\暑假项目_ai标书\assets\image-20260714213700880.png)
+![image-20260714213700880](assets\image-20260714213700880.png)
 
 
 
