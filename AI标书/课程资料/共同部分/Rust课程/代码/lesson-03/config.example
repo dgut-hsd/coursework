@@ -1,0 +1,3 @@
+api_key=demo-key
+model=qwen-plus
+max_tokens=1024
