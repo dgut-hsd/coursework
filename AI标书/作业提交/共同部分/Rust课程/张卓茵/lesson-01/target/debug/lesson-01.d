@@ -1,1 +1,0 @@
-D:\gitfile\coursework\coursework1\coursework\AI标书\作业提交\共同部分\Rust课程\张卓茵\lesson-01\target\debug\lesson-01.exe: D:\gitfile\coursework\coursework1\coursework\AI标书\作业提交\共同部分\Rust课程\张卓茵\lesson-01\src\main.rs
