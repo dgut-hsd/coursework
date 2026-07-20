@@ -1,0 +1,14 @@
+[package]
+name = "lesson-04"
+version = "0.1.0"
+edition = "2021"  # 注意：通常课程用的是2021，除非你确定装了最新的Rust才用2024
+
+[dependencies]
+# 把 .workspace = true 全部删掉，换成具体的版本
+anyhow = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+dotenvy = "0.15"
+reqwest = { version = "0.11", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
