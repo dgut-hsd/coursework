@@ -1,20 +1,20 @@
-# RAG实战-lesson01-程迪宏个人笔记
+# RAG实战-lesson01-个人任务
 
 ## 1.原理图
 
 ### 1.1 Tokenizer — 文本怎么变成数字
 
-![image-20260720195113589](RAG实战-lesson01-程迪宏个人笔记.assets/image-20260720195113589-1784548275988-1.png)
+![image-20260720195113589](RAG实战-lesson01-个人任务.assets/image-20260720195113589-1784548275988-1.png)
 
 ### 1.2 Transformer Embedding — Token 向量怎么变成句子向量
 
-![image-20260720202416014](RAG实战-lesson01-程迪宏个人笔记.assets/image-20260720202416014-1784550257820-3.png)
+![image-20260720202416014](RAG实战-lesson01-个人任务.assets/image-20260720202416014-1784550257820-3.png)
 
 
 
 ### 1.3 ONNX Runtime 推理优化
 
-![image-20260720204349968](RAG实战-lesson01-程迪宏个人笔记.assets/image-20260720204349968-1784551431404-5.png)
+![image-20260720204349968](RAG实战-lesson01-个人任务.assets/image-20260720204349968-1784551431404-5.png)
 
 
 
