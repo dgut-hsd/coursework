@@ -1,0 +1,19 @@
+[package]
+name = "lesson01"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1"
+ort = { version = "2.0.0-rc.12", features = ["download-binaries", "copy-dylibs"] }
+tokenizers = "0.23"
+ndarray = "0.17"
+statrs = "0.17"
+
+# 解决 Rust 链接 ONNX Runtime 时，两个 C 库的 CRT（C 运行时库）链接方式冲突 的问题。
+# Windows MSVC CRT 兼容：
+# esaxx-rs 硬编码了 static_crt(true) 强制 /MT，
+# 与 ONNX Runtime 预编译的 /MD 冲突。
+# 本地 patch 改为 static_crt(false) 统一为 /MD。
+[patch.crates-io]
+esaxx-rs = { path = "esaxx-rs-patched" }
