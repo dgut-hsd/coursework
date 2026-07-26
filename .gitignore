@@ -8,3 +8,6 @@ target/
 .agents/
 .audit-target/
 .audit-target-final/
+
+#个人文件
+./AI标书/课程资料/小组研究/图数据库实战/docker-compose.yml

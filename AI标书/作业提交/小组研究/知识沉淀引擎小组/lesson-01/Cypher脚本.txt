@@ -1,0 +1,41 @@
+CREATE CONSTRAINT UNIQUE_IMPORT_NAME FOR (node:`UNIQUE IMPORT LABEL`) REQUIRE (node.`UNIQUE IMPORT ID`) IS UNIQUE;
+UNWIND [{_id:0, properties:{law_id:"law_bid", level:"法律", name:"中华人民共和国招标投标法"}}, {_id:1, properties:{law_id:"law_proc", level:"法律", name:"中华人民共和国政府采购法"}}, {_id:2, properties:{law_id:"law_bid_impl", level:"行政法规", name:"招标投标法实施条例"}}, {_id:3, properties:{law_id:"law_constr", level:"部门规章", name:"建筑业企业资质管理规定"}}, {_id:4, properties:{law_id:"law_gd_proc", level:"地方规章", name:"广东省实施<政府采购法>办法"}}, {_id:5, properties:{law_id:"law_proc_impl", level:"行政法规", name:"中华人民共和国政府采购法实施条例"}}, {_id:6, properties:{law_id:"law_anti_unfair", level:"法律", name:"中华人民共和国反不正当竞争法"}}, {_id:7, properties:{law_id:"law_sme", level:"部门规章", doc_no:"财库〔2020〕46号", name:"政府采购促进中小企业发展管理办法"}}, {_id:8, properties:{law_id:"law_87", level:"部门规章", doc_no:"财政部令第87号", name:"政府采购货物和服务招标投标管理办法"}}] AS row
+CREATE (n:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row._id}) SET n += row.properties SET n:Law;
+UNWIND [{_id:25, properties:{rule_id:"prohibit_001", rule:"不得以供应商注册地、本地分支机构要求限制外地供应商", source_article:"20(八)", source_law:"政府采购法实施条例"}}, {_id:26, properties:{rule_id:"prohibit_002", rule:"不得将注册资本、资产总额、营业收入、从业人员、利润、纳税额作为资格或评审因素", source_article:"5", source_law:"政府采购促进中小企业发展管理办法"}}, {_id:27, properties:{rule_id:"prohibit_003", rule:"不得指定特定品牌、型号，或限定特定检测/认证机构出具报告", source_article:"20(三)", source_law:"政府采购法实施条例"}}] AS row
+CREATE (n:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row._id}) SET n += row.properties SET n:Prohibition;
+UNWIND [{_id:9, properties:{law_id:"law_bid", article_number:"22", text:"招标人不得以不合理的条件限制或者排斥潜在投标人..."}}, {_id:10, properties:{law_id:"law_proc", article_number:"18", text:"采购人不得以不合理的条件对供应商实行差别待遇..."}}, {_id:11, properties:{law_id:"law_proc_impl", article_number:"20", text:"采购人或者采购代理机构有下列情形之一的，属于以不合理条件对供应商实行差别待遇或者歧视待遇：…（八）以其他不合理条件限制或者排斥潜在供应商。"}}, {_id:12, properties:{law_id:"law_proc", article_number:"22", text:"采购人可以根据采购项目的特殊要求，规定供应商的特定条件，但不得以不合理的条件对供应商实行差别待遇或者歧视待遇。"}}, {_id:13, properties:{law_id:"law_proc_impl", article_number:"43", text:"采购人应当自收到评标报告之日起5个工作日内，在评标报告确定的中标候选人名单中按顺序确定中标人。"}}, {_id:14, properties:{law_id:"law_sme", article_number:"5", text:"采购人不得在政府采购活动中以企业注册资本、资产总额、营业收入、从业人员、利润、纳税额等规模条件和财务指标作为供应商的资格要求或者评审因素。"}}, {_id:15, properties:{law_id:"law_87", article_number:"17", text:"采购人、采购代理机构不得将投标人的注册资本、资产总额、营业收入、从业人员、利润、纳税额等规模条件作为资格要求或者评审因素。"}}] AS row
+CREATE (n:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row._id}) SET n += row.properties SET n:Article;
+UNWIND [{_id:21, properties:{severity:"高", risk_id:"risk_001", name:"排斥外地供应商", category:"市场公平", desc:"通过设置本地售后服务机构、本地分支机构等实质性要求增加外地供应商成本"}}, {_id:22, properties:{severity:"高", risk_id:"risk_002", name:"歧视中小企业", category:"市场公平", desc:"将营业面积、社保人数、销售金额等规模条件作为评审因素"}}, {_id:23, properties:{severity:"中", risk_id:"risk_003", name:"指向特定产品/品牌", category:"排他性条款", desc:"技术参数直接写品牌型号，或限定特定检测/认证机构"}}, {_id:24, properties:{severity:"中", risk_id:"risk_004", name:"证书门槛不当", category:"资格设置", desc:"将非国家强制性证书或已退出目录的职业资格作为资格条件"}}] AS row
+CREATE (n:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row._id}) SET n += row.properties SET n:Risk;
+UNWIND [{_id:16, properties:{date:"2023-06-15", verdict:"废标", case_id:"case_001", court:"财政部", title:"某市道路工程招标排斥外地企业案"}}, {_id:17, properties:{date:"2025-09-12", verdict:"警告行政处罚", case_id:"case_002", source:"财政部四类违法违规专项整治", court:"S省财政部门", title:"X大学实验室设备采购排斥外地企业案"}}, {_id:18, properties:{date:"2025-08-20", verdict:"警告行政处罚", case_id:"case_003", source:"供应商B公司投诉", court:"地方财政部门", title:"D单位主副食品采购歧视中小企业案"}}, {_id:19, properties:{date:"2026-06-17", verdict:"中标无效，责令重采，警告", case_id:"case_004", source:"财政部指导性案例41号", court:"财政部", title:"G单位办公家具采购设置非强制证书案"}}, {_id:20, properties:{date:"2023-05-26", verdict:"部分投诉成立，条款认定违法", case_id:"case_005", source:"深圳政府采购监管网", court:"深圳市财政局", title:"G单位食堂食材采购评审因素排他案"}}] AS row
+CREATE (n:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row._id}) SET n += row.properties SET n:Case;
+UNWIND [{start: {_id:3}, end: {_id:0}, properties:{}}, {start: {_id:1}, end: {_id:0}, properties:{}}, {start: {_id:2}, end: {_id:5}, properties:{}}] AS row
+MATCH (start:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.start._id})
+MATCH (end:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.end._id})
+CREATE (start)-[r:OVERLAPS_WITH]->(end) SET r += row.properties;
+UNWIND [{start: {_id:17}, end: {_id:21}, properties:{context:"S省售后服务机构实质性要求"}}, {start: {_id:18}, end: {_id:22}, properties:{context:"营业面积/社保人数/销售金额评分"}}, {start: {_id:19}, end: {_id:24}, properties:{context:"非强制安全生产标准化证书作为资格"}}, {start: {_id:20}, end: {_id:24}, properties:{context:"营养配餐员证限定人社部门颁发+6个月社保证明"}}, {start: {_id:20}, end: {_id:22}, properties:{context:"6个月社保证明变相限制经营年限→歧视中小"}}] AS row
+MATCH (start:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.start._id})
+MATCH (end:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.end._id})
+CREATE (start)-[r:FOUND_RISK]->(end) SET r += row.properties;
+UNWIND [{start: {_id:16}, end: {_id:9}, properties:{}}, {start: {_id:16}, end: {_id:10}, properties:{}}, {start: {_id:17}, end: {_id:11}, properties:{}}, {start: {_id:17}, end: {_id:12}, properties:{}}, {start: {_id:18}, end: {_id:11}, properties:{}}, {start: {_id:18}, end: {_id:14}, properties:{}}, {start: {_id:18}, end: {_id:15}, properties:{}}, {start: {_id:19}, end: {_id:11}, properties:{}}, {start: {_id:19}, end: {_id:12}, properties:{}}, {start: {_id:20}, end: {_id:11}, properties:{}}, {start: {_id:20}, end: {_id:14}, properties:{}}] AS row
+MATCH (start:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.start._id})
+MATCH (end:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.end._id})
+CREATE (start)-[r:CITED_IN]->(end) SET r += row.properties;
+UNWIND [{start: {_id:17}, end: {_id:25}, properties:{}}, {start: {_id:18}, end: {_id:26}, properties:{}}, {start: {_id:19}, end: {_id:27}, properties:{}}] AS row
+MATCH (start:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.start._id})
+MATCH (end:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.end._id})
+CREATE (start)-[r:VIOLATES]->(end) SET r += row.properties;
+UNWIND [{start: {_id:0}, end: {_id:9}, properties:{}}, {start: {_id:1}, end: {_id:10}, properties:{}}, {start: {_id:5}, end: {_id:11}, properties:{}}, {start: {_id:1}, end: {_id:12}, properties:{}}, {start: {_id:5}, end: {_id:13}, properties:{}}, {start: {_id:7}, end: {_id:14}, properties:{}}, {start: {_id:8}, end: {_id:15}, properties:{}}] AS row
+MATCH (start:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.start._id})
+MATCH (end:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.end._id})
+CREATE (start)-[r:HAS_ARTICLE]->(end) SET r += row.properties;
+UNWIND [{start: {_id:21}, end: {_id:25}, properties:{}}, {start: {_id:22}, end: {_id:26}, properties:{}}, {start: {_id:23}, end: {_id:27}, properties:{}}] AS row
+MATCH (start:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.start._id})
+MATCH (end:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.end._id})
+CREATE (start)-[r:EXEMPLIFIES]->(end) SET r += row.properties;
+UNWIND [{start: {_id:2}, end: {_id:0}, properties:{}}, {start: {_id:4}, end: {_id:1}, properties:{}}, {start: {_id:5}, end: {_id:1}, properties:{}}, {start: {_id:7}, end: {_id:5}, properties:{}}, {start: {_id:8}, end: {_id:5}, properties:{}}] AS row
+MATCH (start:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.start._id})
+MATCH (end:`UNIQUE IMPORT LABEL`{`UNIQUE IMPORT ID`: row.end._id})
+CREATE (start)-[r:IMPLEMENTS]->(end) SET r += row.properties;
+MATCH (n:`UNIQUE IMPORT LABEL`)  WITH n LIMIT 20000 REMOVE n:`UNIQUE IMPORT LABEL` REMOVE n.`UNIQUE IMPORT ID`;
+DROP CONSTRAINT UNIQUE_IMPORT_NAME;
