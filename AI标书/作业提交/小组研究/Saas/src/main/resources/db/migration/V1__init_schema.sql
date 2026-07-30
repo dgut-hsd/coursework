@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS sys_config (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    config_key VARCHAR(100) NOT NULL,
+    config_value VARCHAR(500),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS audit_task (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tenant_id BIGINT NOT NULL,
+    project_id BIGINT NULL,
+    status VARCHAR(32) DEFAULT 'PENDING',
+    enabled_checks JSON NULL,
+    version INT DEFAULT 1,
+    created_at DATETIME NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
