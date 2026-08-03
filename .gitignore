@@ -8,3 +8,13 @@ target/
 .agents/
 .audit-target/
 .audit-target-final/
+
+# Node 依赖
+node_modules/
+
+# 前端构建产物
+dist/
+build/
+
+# Vite 缓存
+.vite/
