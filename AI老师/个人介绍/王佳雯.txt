@@ -1,0 +1,6 @@
+个人技术栈简介
+1.编程语言：熟练 C++、Java、Python
+2.算法基础：掌握常用数据结构与各类基础算法
+3.数据库：精通 SQL、MySQL 表设计与优化，了解 Redis
+4.开发框架：会 Spring Boot、FastAPI 服务开发
+5.Web 能力：具备基础 Web 开发能力
