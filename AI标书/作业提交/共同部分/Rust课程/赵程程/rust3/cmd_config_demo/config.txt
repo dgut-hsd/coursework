@@ -1,0 +1,4 @@
+# AI服务配置文件
+api_key=sk-1234567890abcdef
+model=gpt-3.5-turbo
+max_tokens=2048
